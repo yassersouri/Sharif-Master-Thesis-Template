@@ -1,0 +1,276 @@
+\documentclass[MsThesis, oneside]{thesis}
+%Change to oneside or twoside based on what you need
+
+\usepackage[total={16cm,24cm},includehead=true]{geometry}
+%\captionsetup[table]{belowskip=4pt,aboveskip=4pt}
+\usepackage{float}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\usepackage{listings} 
+\usepackage[linesnumbered,ruled]{algorithm2e}
+\usepackage{algorithmic}			% for writing algortihm and psudo-codes	
+
+
+\SetAlgorithmName{الگوریتم}{الگوریتم}{لیست الگوریتم‌ها}
+
+\usepackage{setspace}
+
+\usepackage{subfigure}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{xparse}
+\usepackage{fancyhdr}
+ 
+\renewcommand{\chaptermark}[1]{
+ \markboth{\thechapter-\ #1}{}}
+
+ \NewDocumentCommand\cfigure{O{scale=1.0}mom}
+{\begin{figure}[!h] 
+  \centering 
+  \includegraphics[#1]{figures/#2.pdf}
+  \IfNoValueTF {#3}
+    {\caption{#4}}
+    {\caption[#3]{#4}} 
+  \label{#2} 
+\end{figure}}
+\usepackage[nottoc]{tocbibind} %فهرست تصاویر و جداول در فهرست
+\usepackage[subfigure]{tocloft}
+\usepackage{hyperref}
+\usepackage[xindy, toc]{glossaries} 
+\usepackage[font=small,labelfont=bf]{caption}
+
+\usepackage{tikz}
+  \usetikzlibrary{arrows}
+  \usetikzlibrary{automata}
+\usepackage{color,colortbl}		% color tex and color table
+\usepackage{amsmath,amssymb,amsfonts,bm}	% for writing advanced math formula
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{multirow}
+
+\usepackage{xepersian}
+
+
+\usepackage{amsfonts}
+
+% ------------------ Seth Figure Path ----------------------
+\graphicspath{{}{images/}{images/chap1/}{images/chap2/}{images/chap3/}{images/chap4/}{images/chap5/}}
+% -------------- Some Definitions for math -----------------
+\def\mathbi#1{\textbf{\em #1}}					% define italic bold command as \mathbi
+\DeclareMathOperator*{\argmax}{arg\,max} 		% define argmax operator 
+\DeclareMathOperator*{\argmin}{arg\,min}		% define argmin operator
+\DeclareMathOperator*{\sgn}{sgn}
+
+
+\renewcommand{\listfigurename}{فهرست شکل‌ها}
+\renewcommand{\listtablename}{فهرست جدول‌ها}
+%\renewcommand{\listalgorithmname}{فهرست جدول‌ها}
+
+\settextfont[Scale=1.166666666666666]{XBNiloofar}
+
+\renewcommand{\arraystretch}{1.5}
+%\setdigitfont{IR Yas}
+
+\SepMark{\lr{-}}
+\usepackage{perpage} %the perpage package
+\MakePerPage{footnote} %the perpage package command
+\localisecommands
+\hypersetup{ 
+pdfmenubar=false, pdfstartview=FitH, pdfpagemode=FullScreen,colorlinks=true,linkcolor=blue, anchorcolor=green, citecolor=magenta, urlcolor=cyan, filecolor=magenta, pdftoolbar=true, pdfpagemode=UseOutlines,
+}
+%texlive\2012\texmf-dist\tex\latex\glossaries\base\glossaries.sty
+%style=listgroup,nonumberlist
+
+
+
+\newglossarystyle{mylistFa}{
+\glossarystyle{list}
+\renewenvironment{theglossary}{}{}
+\renewcommand*{\glossaryheader}{}
+\renewcommand*{\glsgroupheading}[1]{\section*{\glsgetgrouptitle{##1}} }
+\renewcommand*{\glsgroupskip}{}
+\renewcommand*{\glossaryentryfield}[5]     {\noindent\glstarget{##1}{##2}\dotfill \space ##3 \\}
+\renewcommand*{\glossarysubentryfield}[6]{\glossaryentryfield{##2}{##3}{##4}{##5}{##6}}
+}\newglossarystyle{mylistEn}{
+\glossarystyle{list}
+\renewenvironment{theglossary}{}{}
+\renewcommand*{\glossaryheader}{}
+\renewcommand*{\glsgroupheading}[1]{\LTR\section*{\glsgetgrouptitle{##1}}} 
+\renewcommand*{\glsgroupskip}{}
+\renewcommand*{\glossaryentryfield}[5]     {\RTL\noindent\glstarget{##1}{##3}\dotfill \space ##2 \\}
+\renewcommand*{\glossarysubentryfield}[6]{\glossaryentryfield{##2}{##3}{##4}{##5}{##6}}
+}
+% تعریف دو نمونه واژه نامه
+\newglossary[glg]{english}{gls}{glo}{واژه‌نامه انگلیسی به فارسی}
+\newglossary[blg]{persian}{bls}{blo}{واژه‌نامه فارسی به انگلیسی}
+% توسط این دستور واژه مورد نظر در متن، هر دو واژه نامه و پاورقی می آید.
+\newcommand{\inpdic}[2]{
+	\newglossaryentry{fa-#1}{type=persian,name={#1}, sort={#1},description={\lr{#2}}}\gls{fa-#1}\LTRfootnote{#2}
+	\newglossaryentry{en-#1}{type=english,name={\lr{#2}}, sort={#2},description={#1}}\glsuseri{en-#1}
+}
+% توسط این دستور واژه مورد نظر در متن، هر دو واژه نامه  می آید.
+\newcommand{\indic}[2]{
+	\newglossaryentry{fa-#1}{type=persian,name={#1}, sort={#1},description={\lr{#2}}}\gls{fa-#1}
+	\newglossaryentry{en-#1}{type=english,name={\lr{#2}}, sort={#2},description={#1}}\glsuseri{en-#1}
+}
+% توسط این دستور واژه مورد نظر فقط در هر دو واژه نامه  می آید.
+\newcommand{\ingls}[2]{
+	\newglossaryentry{fa-#1}{type=persian,name={#1}, sort={#1},description={\lr{#2}}}\glsuseri{fa-#1}
+	\newglossaryentry{en-#1}{type=english,name={\lr{#2}}, sort={#2},description={#1}}\glsuseri{en-#1}
+}
+
+
+\newcommand{\BigO}[1]{\ensuremath{\operatorname{\mathcal{O}}\bigl(#1\bigr)}} %usage \BigO(n) -> O(n)
+
+\makeglossaries
+\glsdisablehyper
+
+\newlength\mylenprt 
+\newlength\mylenchp
+\newlength\mylenapp
+\renewcommand\cftpartpresnum{\partname~}
+\renewcommand\cftchappresnum{\chaptername~}
+\renewcommand\cftchapaftersnum{:}
+\settowidth\mylenprt{\cftpartfont\cftpartpresnum\cftpartaftersnum}
+\settowidth\mylenchp{\cftchapfont\cftchappresnum\cftchapaftersnum}
+\settowidth\mylenapp{\cftchapfont\appendixname~\cftchapaftersnum}
+\addtolength\mylenprt{\cftpartnumwidth}
+\addtolength\mylenchp{\cftchapnumwidth}
+\addtolength\mylenapp{\cftchapnumwidth}
+\setlength\cftpartnumwidth{\mylenprt}
+\setlength\cftchapnumwidth{\mylenchp} 
+\makeatletter
+\renewcommand{\cftfigpresnum}{شکل\space}
+\setlength{\cftfignumwidth}{5em}
+\renewcommand{\@makechapterhead}[1]{%
+{\setlength{\parindent}{0pt}
+\fontspec[Script=Arabic,Mapping=parsidigits,Scale=3]{XBNiloofar}
+\vspace*{50pt}
+\ifnum \value{secnumdepth}>1 
+\if@mainmatter \rule{\textwidth}{1pt}\vspace{5pt}\\\vspace{5pt}\textbf{\@chapapp\space\thechapter}\offinterlineskip\\\rule{\textwidth}{1pt}\vspace{30pt}\\\ \fi%
+\fi
+\parbox{\linewidth}{\textbf{\fontspec[Script=Arabic,Mapping=parsidigits,Scale=2]{XBNiloofar} #1}}\par\nobreak\vspace{40 pt}}}
+\renewcommand{\@makeschapterhead}[1]{%
+{\setlength{\parindent}{0pt}
+\fontspec[Script=Arabic,Mapping=parsidigits,Scale=3]{XBNiloofar}
+\vspace*{50pt}
+\parbox{\linewidth}{\textbf{\fontspec[Script=Arabic,Mapping=parsidigits,Scale=2.5]{XBNiloofar} #1}}\par\nobreak\vspace{40 pt}}}
+\makeatother
+
+\renewcommand{\bibname}{مراجع}
+\makeatletter
+\renewcommand{\@makefntext}[1]{\parindent 1em
+   \noindent\hbox to 1em{}% if you want to indent footnote text you can change the width of the hbox (e.g. \hbox to 2em{})
+   \llap{\if@RTL\else\latinfont\fi\@thefnmark.\,\,}#1}
+\makeatother
+%\numberwithin{algorithm}{chapter}
+\begin{document}
+\آرم{\درج‌تصویر{logo}}
+\تاریخ{ بهار ۱۳۹۴}
+\عنوان{دسته‌بندی ریزدانه‌ای تصاویر}
+\نویسنده{یاسر سوری}
+\دانشگاه{دانشگاه صنعتی شریف\\دانشکده مهندسی کامپیوتر}
+\موضوع{‌هوش‌ مصنوعی}
+\استادراهنما{دکتر شهره کسایی}
+
+\تقدیم{\درشت تقدیم به }
+\frontmatter \makethesistitle \pagestyle{empty}  \baselineskip1.2\baselineskip
+\شروع{تصویب}
+\داور{ممتحن داخلی}{دکتر محمد تقی منظوری شلمانی}
+\داور{داور خارجی}{دکتر بابک نجار اعرابی}
+\پایان{تصویب}
+%
+\شروع{قدردانی}
+باعث افتخار بود که 
+\پایان{قدردانی}
+\شروع{چکیده}{بینایی کامپیوتری، بازشناسی شیء، یادگیری عمیق، دسته‌بندی تصاویر، بازشناسی ریزدانه‌ای} 
+\baselineskip1.5\baselineskip
+{\small\singlespacing\linespread{1.2}
+دسته‌بندی تصویر ریزدانه‌ای عبارت است از }
+\پایان{چکیده}
+%\setstretch{baselinestretch}
+%\baselineskip.66666666666666666667\baselineskip
+
+\pagestyle{plain}\pagenumbering{tartibi}\tableofcontents\newpage\listoffigures\newpage\listoftables\newpage %\listofalgorithms\newpage
+
+\mainmatter%\pagestyle{headings}
+ \baselineskip1.5\baselineskip
+
+\pagestyle{fancyplain}
+ 
+\fancyhf{}
+  \renewcommand{\chaptermark}[1]{\markboth{\chaptername\space\thechapter\space-\space#1}{}} 
+\lhead{\fancyplain{}{\thepage}}
+\rhead{\fancyplain{}{\leftmark}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\pagestyle{headings}
+
+\include{Chap1}
+\include{Chap2}
+\include{Chap3}
+\include{Chap4}
+\include{Chap5}
+%\include{peyvast1}
+%\include{peyvast2}
+
+%\PrepareForBiblio
+%\begin{thebibliography}{1}
+%\begin{LTRitems}
+%\setpersianfont\bibitem{parsilatex}\resetlatinfont
+%\newblock {\itshape ParsiLaTeX}.
+%\newblock {http://parsilatex.com}
+%\setpersianfont\bibitem{StBu}\resetlatinfont
+%Stoer, J. and Bulirsch, R.
+%\newblock {\itshape Introduction to numerical analysis},  Vol.~12 of {\itshape Texts in Applied Mathematics}.
+%\newblock Springer-Verlag, New York, third Ed., 2002.
+%\newblock Translated from the German by R. Bartels, W. Gautschi and C. Witzgall.
+%\end{LTRitems}
+%\end{thebibliography}
+
+
+
+\footnotesize
+%\bibliographystyle{ieeetr-fa}
+%\bibliography{References}
+\bibliographystyle{IEEEtran}
+
+%%\bibliography{IEEEfull,References}
+
+\vspace*{50pt}
+{\LARGE{\textbf{مراجع}}}
+\vspace{40pt}
+\begin{latin}
+\renewcommand{\chapter}[2]{}
+\bibliography{IEEEabrv,References}  % sigproc.bib is the name of the Bibliography in 
+\end{latin}
+\baselineskip\baselineskip 
+
+%\twocolumn{$ $}
+%\LTRdblcol\twocolumn
+%\glossarystyle{mylistEn}
+%\addcontentsline{toc}{chapter}{واژه‌نامه}
+%\printglossary[type=english]
+%\clearpage
+%\baselineskip2\baselineskip 
+%\RTLdblcol\twocolumn
+%\phantomsection
+%\glossarystyle{mylistFa}
+%\printglossary[type=persian]
+%\onecolumn
+%\baselineskip1.2\baselineskip
+\PrepareForLatinPages
+
+\date{Spring 2015}
+\title{\sffamily ‫Fine-grained Image Classification}
+\author{\sffamily Yaser Souri}
+\university{Sharif University of Technology\\Department of Computer Engineering}
+\subject{Artificial Intelligence}
+\supervisor{\sffamily Prof. Shohreh Kasaei}
+
+\begin{abstract}{Computer vision, Object recognition, Deep learning, Image classification, Fine-grained recognition}
+{ %\small\singlespacing\linespread{1}
+Fine-grained image classification is 
+}
+\end{abstract}
+\makethesistitle
+\end{document}

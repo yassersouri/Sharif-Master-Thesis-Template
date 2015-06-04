@@ -1,0 +1,33 @@
+\chapter{جابجایی میانگین}\label{app:ms}
+الگوریتم جابجایی میانگین روشی برای به دست آوردن ماکزیمم یک توزیع احتمال است که به روش ناپارامتری مدل شده‌ است \cite{Comaniciu2002}. در این روش مانند روش‌های مبتنی بر گرادیان، هدف به دست آوردن برداری است که با شروع از یک نقطه اولیه و حرکت در راستای آن به نقطه ماکزیمم یک توزیع ناپارامتری برسیم.
+توزیع داده‌های $x_i$ را می‌توان به روش پنجره پارزن با هسته $k$به صورت زیر مدل کرد:
+\begin{align}
+\hat{f}_K(x) &= \frac{1}{nh^d} \sum_{i=1}^n k \Big( \|\frac{x-x_i}{h}\|^2 \Big)  \\
+\nonumber g(x)&=-k'(x)
+\end{align}
+تخمین گرادیان توزیع احتمال فوق برابر است با:
+\begin{align}
+\nonumber  \hat{\bigtriangledown}f_K(x) \equiv \bigtriangledown \hat{f}_K(x) &= \frac{2}{nh^{d+2}} \sum_{i=1}^n (x-x_i) k' \Big(\ |\frac{x-x_i}{h}\|^2 \Big)  \\
+\nonumber &= \frac{2}{nh^{d+2}} \sum_{i=1}^n (x_i-x) g \Big(\ |\frac{x-x_i}{h}\|^2 \Big)  \\
+&= \frac{2}{nh^{d+2}} \Big[ \sum_{i=1}^n g \Big(\ |\frac{x-x_i}{h}\|^2 \Big) \Big] 
+\Big[ \frac{\sum_{i=1}^n x_i g \Big(\ |\frac{x-x_i}{h}\|^2 \Big)}{\sum_{i=1}^n g \Big(\ |\frac{x-x_i}{h}\|^2 \Big)}-x \Big]
+\label{equ:p1}
+\end{align}
+بردار جابجایی میانگین برابر عبارت زیر تعریف شده است:
+\begin{equation}
+M_{h,G}(x)=\frac{\sum_{i=1}^n x_i g \Big(\ |\frac{x-x_i}{h}\|^2 \Big)}{\sum_{i=1}^n g \Big(\ |\frac{x-x_i}{h}\|^2 \Big)}-x
+\end{equation}
+با جایگذاری $M_{h,G}(x)$ در رابطه \ref{equ:p1} داریم.
+\begin{equation}
+\hat{\bigtriangledown}f_K(x) = \hat{f}_G(x) \frac{2/C}{h^2} M_{h,G}(x)
+\end{equation}
+که در این رابطه  $\hat{f}_G$ تابع تخمین‌گر احتمال با هسته $G$ است. اکنون طبق رابطه فوق داریم.
+\begin{equation}
+M_{h,G}(x) = \frac{h^2}{2/C} \frac{\hat{\bigtriangledown}f_K(x)}{\hat{f}_G(x) }
+\end{equation}
+همان‌طور که انتظار می‌رفت این رابطه شبیه روش گرادیان است. در روش گرادیان برای ماکزیمم کردن یک تابع در راستای گرادیان آن حرکت می کردیم. در اینجا نیز بردار جابجایی میانگین  برحسب گرادیان به دست آمده، در واقع همان بردار گرادیان است که با $f_G$ نرمال شده است.
+اکنون برای به دست آوردن ماکزیمم توزیع $\hat{f}_K$  طبق روش جابجایی میانگین باید رابطه بازگشتی زیر را محاسبه کنیم. 
+\begin{equation}
+y_{j+1}=\frac{\sum_{i=1}^n x_i g \Big(\ |\frac{y_j-x_i}{h}\|^2 \Big)}{\sum_{i=1}^n g \Big(\ |\frac{y_j-x_i}{h}\|^2 \Big)} \quad j=1,2,\ldots
+\end{equation}
+در  \cite{Comaniciu2002} ثابت شده که این  دنباله همگراست. حد دنباله فوق برابر ماکزیمم توزیع $\hat{f}_K$ است.
